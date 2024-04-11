@@ -9,7 +9,7 @@ public class ChessFrame extends JFrame {
         this.chessBoard = new ChessBoard();
         this.add(this.chessBoard);
         this.pack();
-        this.setTitle("Chess Board");
+        this.setTitle("Chess");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setResizable(false);

@@ -4,44 +4,54 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.event.*;
+import java.awt.datatransfer.*;
 
 public class ChessBoard extends JPanel {
     private final int BOARD_SIZE = 8;
     private final int SQUARE_SIZE = 100;
     private Rectangle[][] squares = new Rectangle[BOARD_SIZE][BOARD_SIZE];;
-
     private List<ChessPawn> pawnList = new ArrayList<>();
 
     public ChessBoard() {
-        this.setPreferredSize(new Dimension(BOARD_SIZE*SQUARE_SIZE,BOARD_SIZE*SQUARE_SIZE));
+        this.setPreferredSize(new Dimension(BOARD_SIZE * SQUARE_SIZE, BOARD_SIZE * SQUARE_SIZE));
 
-        for (int i=0;i<this.BOARD_SIZE;i++){
-            ChessPawn pawn = new ChessPawn(2,0);
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int x = e.getX();
+                int y = e.getY();
+                System.out.println("Mouse clicked at: (" + x + ", " + y + ")");
+            }
+        });
+
+        for (int i = 0; i < this.BOARD_SIZE; i++) {
+            ChessPawn pawn = new ChessPawn(2, 0);
             pawnList.add(pawn);
         }
-        for (int i=0;i<this.BOARD_SIZE;i++){
-            ChessPawn pawn = new ChessPawn(2,1);
+        for (int i = 0; i < this.BOARD_SIZE; i++) {
+            ChessPawn pawn = new ChessPawn(2, 1);
             pawnList.add(pawn);
         }
-        ChessPawn kingWhite = new ChessPawn(1,0);
+        ChessPawn kingWhite = new ChessPawn(1, 0);
         pawnList.add(kingWhite);
-        ChessPawn kingBlack = new ChessPawn(1,1);
+        ChessPawn kingBlack = new ChessPawn(1, 1);
         pawnList.add(kingBlack);
-        ChessPawn knightWhite = new ChessPawn(3,0);
+        ChessPawn knightWhite = new ChessPawn(3, 0);
         pawnList.add(knightWhite);
-        ChessPawn knightBlack = new ChessPawn(3,1);
+        ChessPawn knightBlack = new ChessPawn(3, 1);
         pawnList.add(knightBlack);
-        ChessPawn rookWhite = new ChessPawn(5,0);
+        ChessPawn rookWhite = new ChessPawn(5, 0);
         pawnList.add(rookWhite);
-        ChessPawn rookBlack = new ChessPawn(5,1);
+        ChessPawn rookBlack = new ChessPawn(5, 1);
         pawnList.add(rookBlack);
-        ChessPawn bishopWhite = new ChessPawn(4,0);
+        ChessPawn bishopWhite = new ChessPawn(4, 0);
         pawnList.add(bishopWhite);
-        ChessPawn bishopBlack = new ChessPawn(4,1);
+        ChessPawn bishopBlack = new ChessPawn(4, 1);
         pawnList.add(bishopBlack);
-        ChessPawn queenWhite = new ChessPawn(6,0);
+        ChessPawn queenWhite = new ChessPawn(6, 0);
         pawnList.add(queenWhite);
-        ChessPawn queenBlack = new ChessPawn(6,1);
+        ChessPawn queenBlack = new ChessPawn(6, 1);
         pawnList.add(queenBlack);
     }
     public void paint(Graphics g) {
