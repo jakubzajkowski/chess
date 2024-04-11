@@ -14,6 +14,7 @@ public class ChessBoard extends JPanel {
 
     public ChessBoard() {
         this.setPreferredSize(new Dimension(BOARD_SIZE*SQUARE_SIZE,BOARD_SIZE*SQUARE_SIZE));
+
         for (int i=0;i<this.BOARD_SIZE;i++){
             ChessPawn pawn = new ChessPawn(2,0);
             pawnList.add(pawn);
@@ -22,6 +23,26 @@ public class ChessBoard extends JPanel {
             ChessPawn pawn = new ChessPawn(2,1);
             pawnList.add(pawn);
         }
+        ChessPawn kingWhite = new ChessPawn(1,0);
+        pawnList.add(kingWhite);
+        ChessPawn kingBlack = new ChessPawn(1,1);
+        pawnList.add(kingBlack);
+        ChessPawn knightWhite = new ChessPawn(3,0);
+        pawnList.add(knightWhite);
+        ChessPawn knightBlack = new ChessPawn(3,1);
+        pawnList.add(knightBlack);
+        ChessPawn rookWhite = new ChessPawn(5,0);
+        pawnList.add(rookWhite);
+        ChessPawn rookBlack = new ChessPawn(5,1);
+        pawnList.add(rookBlack);
+        ChessPawn bishopWhite = new ChessPawn(4,0);
+        pawnList.add(bishopWhite);
+        ChessPawn bishopBlack = new ChessPawn(4,1);
+        pawnList.add(bishopBlack);
+        ChessPawn queenWhite = new ChessPawn(6,0);
+        pawnList.add(queenWhite);
+        ChessPawn queenBlack = new ChessPawn(6,1);
+        pawnList.add(queenBlack);
     }
     public void paint(Graphics g) {
         for (int row = 0; row < BOARD_SIZE; row++) {
@@ -29,7 +50,8 @@ public class ChessBoard extends JPanel {
                 int x = col * SQUARE_SIZE;
                 int y = row * SQUARE_SIZE;
 
-                int padding = (int) (0.1 * SQUARE_SIZE);
+                int pawnPadding = (int) (0.15 * SQUARE_SIZE);
+                int figurePadding = (int) (0.1 * SQUARE_SIZE);
 
                 squares[row][col] = new Rectangle(x, y, SQUARE_SIZE, SQUARE_SIZE);
 
@@ -38,12 +60,27 @@ public class ChessBoard extends JPanel {
 
                 g.fillRect(x, y, SQUARE_SIZE, SQUARE_SIZE);
                 g.fillRect(x, y, SQUARE_SIZE, SQUARE_SIZE);
-                if (row==1){
-                    g.drawImage(this.pawnList.get(row).image, x + padding, y + padding, SQUARE_SIZE - 2 * padding, SQUARE_SIZE - 2 * padding, null);
-                }
-                if (row==6){
-                    g.drawImage(this.pawnList.get(row+7).image, x + padding, y + padding, SQUARE_SIZE - 2 * padding, SQUARE_SIZE - 2 * padding, null);
-                }
+
+                initialPawnsPosition(pawnList, x, y,col,row,g,pawnPadding,figurePadding,SQUARE_SIZE);
+            }
+        }
+    }
+    public static void initialPawnsPosition(List<ChessPawn> pawnList,int x,int y,int col,int row,Graphics g,int pawnPadding,int figurePadding,int SQUARE_SIZE){
+        for(ChessPawn pawn : pawnList){
+            if (pawn.initPosition[0]==8 && pawn.initPosition[1]==row){
+                g.drawImage(pawn.image, x + pawnPadding, y + pawnPadding, SQUARE_SIZE - 2 * pawnPadding, SQUARE_SIZE - 2 * pawnPadding, null);
+            }
+            if (pawn.initPosition[0]==col && pawn.initPosition[1]==row){
+                g.drawImage(pawn.image, x + figurePadding, y + figurePadding, SQUARE_SIZE - 2 * figurePadding, SQUARE_SIZE - 2 * figurePadding, null);
+            }
+            if (pawn.initPosition[0]==9 && pawn.initPosition[1]==row && (col==6 || col==1)){
+                g.drawImage(pawn.image, x + figurePadding, y + figurePadding, SQUARE_SIZE - 2 * figurePadding, SQUARE_SIZE - 2 * figurePadding, null);
+            }
+            if (pawn.initPosition[0]==10 && pawn.initPosition[1]==row && (col==7 || col==0)){
+                g.drawImage(pawn.image, x + figurePadding, y + figurePadding, SQUARE_SIZE - 2 * figurePadding, SQUARE_SIZE - 2 * figurePadding, null);
+            }
+            if (pawn.initPosition[0]==11 && pawn.initPosition[1]==row && (col==2 || col==5)){
+                g.drawImage(pawn.image, x + figurePadding, y + figurePadding, SQUARE_SIZE - 2 * figurePadding, SQUARE_SIZE - 2 * figurePadding, null);
             }
         }
     }
