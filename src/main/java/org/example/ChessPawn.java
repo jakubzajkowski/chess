@@ -14,8 +14,12 @@ public class ChessPawn {
     public final int White = 1;
     public final int Black = 0;
     public BufferedImage image;
+    public int x;
+    public int y;
 
-    public ChessPawn(int pawn,int color){
+    public ChessPawn(int pawn,int color,int x,int y){
+        this.x = x;
+        this.y = y;
         if (pawn==2 && color==0){
             this.image=loadImage("/pawn_black.png");
         }

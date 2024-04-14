@@ -8,13 +8,13 @@ import java.util.Arrays;
 public class ChessBoard extends JPanel {
     private final int BOARD_SIZE = 8;
     private final int SQUARE_SIZE = 100;
-    private ChessPawnPosition[][] squares = new ChessPawnPosition[BOARD_SIZE][BOARD_SIZE];;
+    private ChessPawn[][] squares = new ChessPawn[BOARD_SIZE][BOARD_SIZE];;
     private final int INIT_BLACK_ROW=0;
     private final int INIT_WHITE_ROW=7;
     private int mouseX = -1;
     private int mouseY = -1;
-    private static boolean isSelectedPawn=false;
-    private static ChessPawnPosition SelectedChessPawnPosition;
+//    private static boolean isSelectedPawn=false;
+//    private static ChessPawnPosition SelectedChessPawnPosition;
 
     public ChessBoard() {
         this.setPreferredSize(new Dimension(BOARD_SIZE * SQUARE_SIZE, BOARD_SIZE * SQUARE_SIZE));
@@ -29,60 +29,60 @@ public class ChessBoard extends JPanel {
         });
 
         for (int i = 0; i < this.BOARD_SIZE; i++) {
-            ChessPawn pawn = new ChessPawn(2, 0);
-            this.squares[1][i] = new ChessPawnPosition(pawn,1,i);
+            ChessPawn pawn = new ChessPawn(2, 0,1,i);
+            this.squares[1][i] = pawn;
         }
         for (int i = 0; i < this.BOARD_SIZE; i++) {
-            ChessPawn pawn = new ChessPawn(2, 1);
-            this.squares[6][i] = new ChessPawnPosition(pawn,6,i);
+            ChessPawn pawn = new ChessPawn(2, 1,6,i);
+            this.squares[6][i] = pawn;
         }
-        ChessPawn kingWhite = new ChessPawn(1, 1);
-        this.squares[INIT_WHITE_ROW][4] = new ChessPawnPosition(kingWhite,INIT_WHITE_ROW,4);
+        ChessPawn kingWhite = new ChessPawn(1, 1,INIT_WHITE_ROW,4);
+        this.squares[INIT_WHITE_ROW][4] = kingWhite;
 
-        ChessPawn kingBlack = new ChessPawn(1, 0);
-        this.squares[INIT_BLACK_ROW][4] = new ChessPawnPosition(kingBlack,INIT_BLACK_ROW,4);
+        ChessPawn kingBlack = new ChessPawn(1, 0,INIT_BLACK_ROW,4);
+        this.squares[INIT_BLACK_ROW][4] = kingBlack;
 
-        ChessPawn knightWhite = new ChessPawn(3, 0);
-        this.squares[INIT_BLACK_ROW][1] = new ChessPawnPosition(knightWhite,INIT_BLACK_ROW,1);
+        ChessPawn knightWhite = new ChessPawn(3, 0,INIT_BLACK_ROW,1);
+        this.squares[INIT_BLACK_ROW][1] = knightWhite;
 
-        ChessPawn knightBlack = new ChessPawn(3, 1);
-        this.squares[INIT_WHITE_ROW][1] = new ChessPawnPosition(knightBlack,INIT_WHITE_ROW,1);
+        ChessPawn knightBlack = new ChessPawn(3, 1,INIT_WHITE_ROW,1);
+        this.squares[INIT_WHITE_ROW][1] = knightBlack;
 
-        ChessPawn knightSecWhite = new ChessPawn(3, 0);
-        this.squares[INIT_BLACK_ROW][6] = new ChessPawnPosition(knightSecWhite,INIT_BLACK_ROW,6);
+        ChessPawn knightSecWhite = new ChessPawn(3, 0,INIT_BLACK_ROW,6);
+        this.squares[INIT_BLACK_ROW][6] = knightSecWhite;
 
-        ChessPawn knightSecBlack = new ChessPawn(3, 1);
-        this.squares[INIT_WHITE_ROW][6] = new ChessPawnPosition(knightSecBlack,INIT_WHITE_ROW,6);
+        ChessPawn knightSecBlack = new ChessPawn(3, 1,INIT_WHITE_ROW,6);
+        this.squares[INIT_WHITE_ROW][6] = knightSecBlack;
 
-        ChessPawn rookWhite = new ChessPawn(5, 0);
-        this.squares[INIT_BLACK_ROW][0] = new ChessPawnPosition(rookWhite,INIT_BLACK_ROW,0);
+        ChessPawn rookWhite = new ChessPawn(5, 0,INIT_BLACK_ROW,0);
+        this.squares[INIT_BLACK_ROW][0] = rookWhite;
 
-        ChessPawn rookBlack = new ChessPawn(5, 1);
-        this.squares[INIT_WHITE_ROW][0] = new ChessPawnPosition(rookBlack,INIT_WHITE_ROW,0);
+        ChessPawn rookBlack = new ChessPawn(5, 1,INIT_WHITE_ROW,0);
+        this.squares[INIT_WHITE_ROW][0] = rookBlack;
 
-        ChessPawn rookSecWhite = new ChessPawn(5, 0);
-        this.squares[INIT_BLACK_ROW][7] = new ChessPawnPosition(rookSecWhite,INIT_BLACK_ROW,7);
+        ChessPawn rookSecWhite = new ChessPawn(5, 0,INIT_BLACK_ROW,7);
+        this.squares[INIT_BLACK_ROW][7] = rookSecWhite;
 
-        ChessPawn rookSecBlack = new ChessPawn(5, 1);
-        this.squares[INIT_WHITE_ROW][7] = new ChessPawnPosition(rookSecBlack,INIT_WHITE_ROW,7);
+        ChessPawn rookSecBlack = new ChessPawn(5, 1,INIT_WHITE_ROW,7);
+        this.squares[INIT_WHITE_ROW][7] = rookSecBlack;
 
-        ChessPawn bishopWhite = new ChessPawn(4, 0);
-        this.squares[INIT_BLACK_ROW][2] = new ChessPawnPosition(bishopWhite,INIT_BLACK_ROW,2);
+        ChessPawn bishopWhite = new ChessPawn(4, 0,INIT_BLACK_ROW,2);
+        this.squares[INIT_BLACK_ROW][2] = bishopWhite;
 
-        ChessPawn bishopBlack = new ChessPawn(4, 1);
-        this.squares[INIT_WHITE_ROW][2] = new ChessPawnPosition(bishopBlack,INIT_WHITE_ROW,2);
+        ChessPawn bishopBlack = new ChessPawn(4, 1,INIT_WHITE_ROW,2);
+        this.squares[INIT_WHITE_ROW][2] = bishopBlack;
 
-        ChessPawn bishopSecWhite = new ChessPawn(4, 0);
-        this.squares[INIT_BLACK_ROW][5] = new ChessPawnPosition(bishopSecWhite,INIT_BLACK_ROW,5);
+        ChessPawn bishopSecWhite = new ChessPawn(4, 0,INIT_BLACK_ROW,5);
+        this.squares[INIT_BLACK_ROW][5] = bishopSecWhite;
 
-        ChessPawn bishopSecBlack = new ChessPawn(4, 1);
-        this.squares[INIT_WHITE_ROW][5] = new ChessPawnPosition(bishopSecBlack,INIT_WHITE_ROW,5);
+        ChessPawn bishopSecBlack = new ChessPawn(4, 1,INIT_WHITE_ROW,5);
+        this.squares[INIT_WHITE_ROW][5] = bishopSecBlack;
 
-        ChessPawn queenWhite = new ChessPawn(6, 0);
-        this.squares[INIT_BLACK_ROW][3] = new ChessPawnPosition(queenWhite,INIT_BLACK_ROW,3);
+        ChessPawn queenWhite = new ChessPawn(6, 0,INIT_BLACK_ROW,3);
+        this.squares[INIT_BLACK_ROW][3] = queenWhite;
 
-        ChessPawn queenBlack = new ChessPawn(6, 1);
-        this.squares[INIT_WHITE_ROW][3] = new ChessPawnPosition(queenBlack,INIT_WHITE_ROW,3);
+        ChessPawn queenBlack = new ChessPawn(6, 1,INIT_WHITE_ROW,3);
+        this.squares[INIT_WHITE_ROW][3] = queenBlack;
 
     }
     @Override
@@ -102,49 +102,49 @@ public class ChessBoard extends JPanel {
                 g.fillRect(x, y, SQUARE_SIZE, SQUARE_SIZE);
 
                 if (squares[row][col]!=null){
-                    g.drawImage(squares[row][col].pawn.image, x + pawnPadding, y + pawnPadding, SQUARE_SIZE - 2 * pawnPadding, SQUARE_SIZE - 2 * pawnPadding, null);
+                    g.drawImage(squares[row][col].image, x + pawnPadding, y + pawnPadding, SQUARE_SIZE - 2 * pawnPadding, SQUARE_SIZE - 2 * pawnPadding, null);
                 }
             }
         }
 
 
-        if (mouseX != -1 && mouseY != -1) {
-            movePawn(g,mouseY,mouseX,squares,SQUARE_SIZE);
-        }
+//        if (mouseX != -1 && mouseY != -1) {
+//            movePawn(g,mouseY,mouseX,squares,SQUARE_SIZE);
+//        }
     }
-    public void movePawn(Graphics g, int mouseY, int mouseX, ChessPawnPosition[][] squares, int SQUARE_SIZE){
-        int hoverPadding = (int) (0.05 * SQUARE_SIZE);
-        int pawnPadding = (int) (0.1 * SQUARE_SIZE);
-
-        int row = (int) Math.floor((double) mouseY /100);
-        int col = (int) Math.floor((double) mouseX /100);
-
-
-        if (squares[row][col]!=null){
-            if (!isSelectedPawn){
-                if ((row + col) % 2 == 0) g.setColor(Color.getHSBColor(0.25F, 1.0F, 0.55F));
-                else g.setColor(Color.getHSBColor(0.25F, 0.10F, 0.85F));
-                g.fillRect((col*100), (row*100), SQUARE_SIZE, SQUARE_SIZE);
-                g.drawImage(squares[row][col].pawn.image, (col*100) + hoverPadding, (row*100) + hoverPadding, SQUARE_SIZE - 2 * hoverPadding, SQUARE_SIZE - 2 * hoverPadding, null);
-                isSelectedPawn=true;
-                SelectedChessPawnPosition=squares[row][col];
-            }
-        }else {
-            if (isSelectedPawn) {
-
-                if ((row + col) % 2 == 0) g.setColor(Color.getHSBColor(0.25F, 1.0F, 0.55F));
-                else g.setColor(Color.getHSBColor(0.25F, 0.10F, 0.85F));
-                g.fillRect((col * 100), (row * 100), SQUARE_SIZE, SQUARE_SIZE);
-                g.drawImage(SelectedChessPawnPosition.pawn.image, (col * 100) + pawnPadding, (row * 100) + pawnPadding, SQUARE_SIZE - 2 * pawnPadding, SQUARE_SIZE - 2 * pawnPadding, null);
-
-
-                squares[row][col]=SelectedChessPawnPosition;
-
-                squares[SelectedChessPawnPosition.y][SelectedChessPawnPosition.x]=null;
-                SelectedChessPawnPosition.x=col;
-                SelectedChessPawnPosition.y=row;
-                isSelectedPawn = false;
-            }
-        }
-    }
+//    public void movePawn(Graphics g, int mouseY, int mouseX, ChessPawnPosition[][] squares, int SQUARE_SIZE){
+//        int hoverPadding = (int) (0.05 * SQUARE_SIZE);
+//        int pawnPadding = (int) (0.1 * SQUARE_SIZE);
+//
+//        int row = (int) Math.floor((double) mouseY /100);
+//        int col = (int) Math.floor((double) mouseX /100);
+//
+//
+//        if (squares[row][col]!=null){
+//            if (!isSelectedPawn){
+//                if ((row + col) % 2 == 0) g.setColor(Color.getHSBColor(0.25F, 1.0F, 0.55F));
+//                else g.setColor(Color.getHSBColor(0.25F, 0.10F, 0.85F));
+//                g.fillRect((col*100), (row*100), SQUARE_SIZE, SQUARE_SIZE);
+//                g.drawImage(squares[row][col].pawn.image, (col*100) + hoverPadding, (row*100) + hoverPadding, SQUARE_SIZE - 2 * hoverPadding, SQUARE_SIZE - 2 * hoverPadding, null);
+//                isSelectedPawn=true;
+//                SelectedChessPawnPosition=squares[row][col];
+//            }
+//        }else {
+//            if (isSelectedPawn) {
+//
+//                if ((row + col) % 2 == 0) g.setColor(Color.getHSBColor(0.25F, 1.0F, 0.55F));
+//                else g.setColor(Color.getHSBColor(0.25F, 0.10F, 0.85F));
+//                g.fillRect((col * 100), (row * 100), SQUARE_SIZE, SQUARE_SIZE);
+//                g.drawImage(SelectedChessPawnPosition.pawn.image, (col * 100) + pawnPadding, (row * 100) + pawnPadding, SQUARE_SIZE - 2 * pawnPadding, SQUARE_SIZE - 2 * pawnPadding, null);
+//
+//
+//                squares[row][col]=SelectedChessPawnPosition;
+//
+//                squares[SelectedChessPawnPosition.y][SelectedChessPawnPosition.x]=null;
+//                SelectedChessPawnPosition.x=col;
+//                SelectedChessPawnPosition.y=row;
+//                isSelectedPawn = false;
+//            }
+//        }
+//    }
 }
