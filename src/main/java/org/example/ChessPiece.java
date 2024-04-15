@@ -13,12 +13,14 @@ public abstract class ChessPiece {
     public final int White = 1;
     public final int Black = 0;
     public BufferedImage image;
+    public int color;
     public int x;
     public int y;
 
     public ChessPiece(int pawn, int color, int x, int y){
         this.x = x;
         this.y = y;
+        this.color=color;
         if (pawn==2 && color==0){
             this.image=loadImage("/pawn_black.png");
         }
@@ -65,4 +67,8 @@ public abstract class ChessPiece {
         }
     }
     abstract public boolean isValidMove(int startX, int startY, int x, int y, ChessPiece[][] board);
+
+    public void kill(ChessPiece[][] board,int x,int y){
+        board[y][x] = null;
+    }
 }

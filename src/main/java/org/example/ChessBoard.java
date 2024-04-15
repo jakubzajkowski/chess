@@ -139,21 +139,21 @@ public class ChessBoard extends JPanel {
             if ((row + col) % 2 == 0) g.setColor(Color.getHSBColor(0.25F, 1.0F, 0.55F));
             else g.setColor(Color.getHSBColor(0.25F, 0.10F, 0.85F));
 
-            if (squares[row][col]==null){
-                if (selectedChessPawn.isValidMove(selectedChessPawnX,selectedChessPawnY,col,row,squares)){
-                    g.fillRect((col * 100), (row * 100), SQUARE_SIZE, SQUARE_SIZE);
-                    g.drawImage(selectedChessPawn.image, (col * 100) + pawnPadding, (row * 100) + pawnPadding, SQUARE_SIZE - 2 * pawnPadding, SQUARE_SIZE - 2 * pawnPadding, null);
 
-                    squares[row][col]= selectedChessPawn;
-                    squares[selectedChessPawnY][selectedChessPawnX]=null;
-                    selectedChessPawn.x = col;
-                    selectedChessPawn.y = row;
+            if (selectedChessPawn.isValidMove(selectedChessPawnX,selectedChessPawnY,col,row,squares)){
+                g.fillRect((col * 100), (row * 100), SQUARE_SIZE, SQUARE_SIZE);
+                g.drawImage(selectedChessPawn.image, (col * 100) + pawnPadding, (row * 100) + pawnPadding, SQUARE_SIZE - 2 * pawnPadding, SQUARE_SIZE - 2 * pawnPadding, null);
 
-                    if ((selectedChessPawnY + selectedChessPawnX) % 2 == 0) g.setColor(Color.getHSBColor(0.25F, 1.0F, 0.55F));
-                    else g.setColor(Color.getHSBColor(0.25F, 0.10F, 0.85F));
-                    g.fillRect((selectedChessPawnX * 100), (selectedChessPawnY * 100), SQUARE_SIZE, SQUARE_SIZE);
-                }
+                squares[row][col]= selectedChessPawn;
+                squares[selectedChessPawnY][selectedChessPawnX]=null;
+                selectedChessPawn.x = col;
+                selectedChessPawn.y = row;
+
+                if ((selectedChessPawnY + selectedChessPawnX) % 2 == 0) g.setColor(Color.getHSBColor(0.25F, 1.0F, 0.55F));
+                else g.setColor(Color.getHSBColor(0.25F, 0.10F, 0.85F));
+                g.fillRect((selectedChessPawnX * 100), (selectedChessPawnY * 100), SQUARE_SIZE, SQUARE_SIZE);
             }
+
             selectedChessPawn = null;
             isSelectedPawn = false;
         }
