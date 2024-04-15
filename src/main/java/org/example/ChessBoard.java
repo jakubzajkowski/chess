@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.pieces.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -7,11 +9,11 @@ import java.awt.event.*;
 public class ChessBoard extends JPanel {
     private final int BOARD_SIZE = 8;
     private final int SQUARE_SIZE = 100;
-    private final ChessPawn[][] squares = new ChessPawn[BOARD_SIZE][BOARD_SIZE];;
+    private final ChessPiece[][] squares = new ChessPiece[BOARD_SIZE][BOARD_SIZE];;
     private int mouseX = -1;
     private int mouseY = -1;
     private boolean isSelectedPawn=false;
-    private ChessPawn selectedChessPawn;
+    private ChessPiece selectedChessPawn;
     private int selectedChessPawnX;
     private int selectedChessPawnY;
 
@@ -28,61 +30,61 @@ public class ChessBoard extends JPanel {
         });
 
         for (int i = 0; i < this.BOARD_SIZE; i++) {
-            ChessPawn pawn = new ChessPawn(2, 0,1,i);
+            ChessPiece pawn = new PawnPiece(2, 0,1,i);
             this.squares[1][i] = pawn;
         }
         for (int i = 0; i < this.BOARD_SIZE; i++) {
-            ChessPawn pawn = new ChessPawn(2, 1,6,i);
+            ChessPiece pawn = new PawnPiece(2, 1,6,i);
             this.squares[6][i] = pawn;
         }
         int INIT_WHITE_ROW = 7;
-        ChessPawn kingWhite = new ChessPawn(1, 1, INIT_WHITE_ROW,4);
+        ChessPiece kingWhite = new KingPiece(1, 1, INIT_WHITE_ROW,4);
         this.squares[INIT_WHITE_ROW][4] = kingWhite;
 
         int INIT_BLACK_ROW = 0;
-        ChessPawn kingBlack = new ChessPawn(1, 0, INIT_BLACK_ROW,4);
+        ChessPiece kingBlack = new KingPiece(1, 0, INIT_BLACK_ROW,4);
         this.squares[INIT_BLACK_ROW][4] = kingBlack;
 
-        ChessPawn knightWhite = new ChessPawn(3, 0, INIT_BLACK_ROW,1);
+        ChessPiece knightWhite = new KnightPiece(3, 0, INIT_BLACK_ROW,1);
         this.squares[INIT_BLACK_ROW][1] = knightWhite;
 
-        ChessPawn knightBlack = new ChessPawn(3, 1, INIT_WHITE_ROW,1);
+        ChessPiece knightBlack = new KingPiece(3, 1, INIT_WHITE_ROW,1);
         this.squares[INIT_WHITE_ROW][1] = knightBlack;
 
-        ChessPawn knightSecWhite = new ChessPawn(3, 0, INIT_BLACK_ROW,6);
+        ChessPiece knightSecWhite = new KnightPiece(3, 0, INIT_BLACK_ROW,6);
         this.squares[INIT_BLACK_ROW][6] = knightSecWhite;
 
-        ChessPawn knightSecBlack = new ChessPawn(3, 1, INIT_WHITE_ROW,6);
+        ChessPiece knightSecBlack = new KnightPiece(3, 1, INIT_WHITE_ROW,6);
         this.squares[INIT_WHITE_ROW][6] = knightSecBlack;
 
-        ChessPawn rookWhite = new ChessPawn(5, 0, INIT_BLACK_ROW,0);
+        ChessPiece rookWhite = new RookPiece(5, 0, INIT_BLACK_ROW,0);
         this.squares[INIT_BLACK_ROW][0] = rookWhite;
 
-        ChessPawn rookBlack = new ChessPawn(5, 1, INIT_WHITE_ROW,0);
+        ChessPiece rookBlack = new RookPiece(5, 1, INIT_WHITE_ROW,0);
         this.squares[INIT_WHITE_ROW][0] = rookBlack;
 
-        ChessPawn rookSecWhite = new ChessPawn(5, 0, INIT_BLACK_ROW,7);
+        ChessPiece rookSecWhite = new RookPiece(5, 0, INIT_BLACK_ROW,7);
         this.squares[INIT_BLACK_ROW][7] = rookSecWhite;
 
-        ChessPawn rookSecBlack = new ChessPawn(5, 1, INIT_WHITE_ROW,7);
+        ChessPiece rookSecBlack = new RookPiece(5, 1, INIT_WHITE_ROW,7);
         this.squares[INIT_WHITE_ROW][7] = rookSecBlack;
 
-        ChessPawn bishopWhite = new ChessPawn(4, 0, INIT_BLACK_ROW,2);
+        ChessPiece bishopWhite = new BishopPiece(4, 0, INIT_BLACK_ROW,2);
         this.squares[INIT_BLACK_ROW][2] = bishopWhite;
 
-        ChessPawn bishopBlack = new ChessPawn(4, 1, INIT_WHITE_ROW,2);
+        ChessPiece bishopBlack = new BishopPiece(4, 1, INIT_WHITE_ROW,2);
         this.squares[INIT_WHITE_ROW][2] = bishopBlack;
 
-        ChessPawn bishopSecWhite = new ChessPawn(4, 0, INIT_BLACK_ROW,5);
+        ChessPiece bishopSecWhite = new BishopPiece(4, 0, INIT_BLACK_ROW,5);
         this.squares[INIT_BLACK_ROW][5] = bishopSecWhite;
 
-        ChessPawn bishopSecBlack = new ChessPawn(4, 1, INIT_WHITE_ROW,5);
+        ChessPiece bishopSecBlack = new BishopPiece(4, 1, INIT_WHITE_ROW,5);
         this.squares[INIT_WHITE_ROW][5] = bishopSecBlack;
 
-        ChessPawn queenWhite = new ChessPawn(6, 0, INIT_BLACK_ROW,3);
+        ChessPiece queenWhite = new QueenPiece(6, 0, INIT_BLACK_ROW,3);
         this.squares[INIT_BLACK_ROW][3] = queenWhite;
 
-        ChessPawn queenBlack = new ChessPawn(6, 1, INIT_WHITE_ROW,3);
+        ChessPiece queenBlack = new QueenPiece(6, 1, INIT_WHITE_ROW,3);
         this.squares[INIT_WHITE_ROW][3] = queenBlack;
 
     }
@@ -113,7 +115,7 @@ public class ChessBoard extends JPanel {
             movePawn(g,mouseY,mouseX,squares,SQUARE_SIZE);
         }
     }
-    public void movePawn(Graphics g, int mouseY, int mouseX, ChessPawn[][] squares, int SQUARE_SIZE){
+    public void movePawn(Graphics g, int mouseY, int mouseX, ChessPiece[][] squares, int SQUARE_SIZE){
         int hoverPadding = (int) (0.05 * SQUARE_SIZE);
         int pawnPadding = (int) (0.1 * SQUARE_SIZE);
 
@@ -121,37 +123,39 @@ public class ChessBoard extends JPanel {
         int col = (int) Math.floor((double) mouseX /100);
 
 
-        if (squares[row][col]!=null){
-            if (!isSelectedPawn){
+        if (!isSelectedPawn){
+            if (squares[row][col]!=null) {
                 if ((row + col) % 2 == 0) g.setColor(Color.getHSBColor(0.25F, 1.0F, 0.55F));
                 else g.setColor(Color.getHSBColor(0.25F, 0.10F, 0.85F));
-                g.fillRect((col*100), (row*100), SQUARE_SIZE, SQUARE_SIZE);
-                g.drawImage(squares[row][col].image, (col*100) + hoverPadding, (row*100) + hoverPadding, SQUARE_SIZE - 2 * hoverPadding, SQUARE_SIZE - 2 * hoverPadding, null);
-                isSelectedPawn=true;
+                g.fillRect((col * 100), (row * 100), SQUARE_SIZE, SQUARE_SIZE);
+                g.drawImage(squares[row][col].image, (col * 100) + hoverPadding, (row * 100) + hoverPadding, SQUARE_SIZE - 2 * hoverPadding, SQUARE_SIZE - 2 * hoverPadding, null);
+                isSelectedPawn = true;
                 selectedChessPawn = squares[row][col];
                 selectedChessPawnX = col;
                 selectedChessPawnY = row;
             }
-        }else {
-            if (isSelectedPawn) {
+        }
+        else {
+            if ((row + col) % 2 == 0) g.setColor(Color.getHSBColor(0.25F, 1.0F, 0.55F));
+            else g.setColor(Color.getHSBColor(0.25F, 0.10F, 0.85F));
 
-                if ((row + col) % 2 == 0) g.setColor(Color.getHSBColor(0.25F, 1.0F, 0.55F));
-                else g.setColor(Color.getHSBColor(0.25F, 0.10F, 0.85F));
-                g.fillRect((col * 100), (row * 100), SQUARE_SIZE, SQUARE_SIZE);
-                g.drawImage(selectedChessPawn.image, (col * 100) + pawnPadding, (row * 100) + pawnPadding, SQUARE_SIZE - 2 * pawnPadding, SQUARE_SIZE - 2 * pawnPadding, null);
+            if (squares[row][col]==null){
+                if (selectedChessPawn.isValidMove(selectedChessPawnX,selectedChessPawnY,col,row,squares)){
+                    g.fillRect((col * 100), (row * 100), SQUARE_SIZE, SQUARE_SIZE);
+                    g.drawImage(selectedChessPawn.image, (col * 100) + pawnPadding, (row * 100) + pawnPadding, SQUARE_SIZE - 2 * pawnPadding, SQUARE_SIZE - 2 * pawnPadding, null);
 
-                squares[row][col]= selectedChessPawn;
-                squares[selectedChessPawnY][selectedChessPawnX]=null;
-                selectedChessPawn.x = col;
-                selectedChessPawn.y = row;
+                    squares[row][col]= selectedChessPawn;
+                    squares[selectedChessPawnY][selectedChessPawnX]=null;
+                    selectedChessPawn.x = col;
+                    selectedChessPawn.y = row;
 
-                if ((selectedChessPawnY + selectedChessPawnX) % 2 == 0) g.setColor(Color.getHSBColor(0.25F, 1.0F, 0.55F));
-                else g.setColor(Color.getHSBColor(0.25F, 0.10F, 0.85F));
-                g.fillRect((selectedChessPawnX * 100), (selectedChessPawnY * 100), SQUARE_SIZE, SQUARE_SIZE);
-
-                selectedChessPawn = null;
-                isSelectedPawn = false;
+                    if ((selectedChessPawnY + selectedChessPawnX) % 2 == 0) g.setColor(Color.getHSBColor(0.25F, 1.0F, 0.55F));
+                    else g.setColor(Color.getHSBColor(0.25F, 0.10F, 0.85F));
+                    g.fillRect((selectedChessPawnX * 100), (selectedChessPawnY * 100), SQUARE_SIZE, SQUARE_SIZE);
+                }
             }
+            selectedChessPawn = null;
+            isSelectedPawn = false;
         }
     }
 }

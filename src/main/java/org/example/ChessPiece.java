@@ -2,9 +2,8 @@ package org.example;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.sql.Array;
 
-public class ChessPawn {
+public abstract class ChessPiece {
     public final int King = 1;
     public final int Pawn = 2;
     public final int Knight = 3;
@@ -17,7 +16,7 @@ public class ChessPawn {
     public int x;
     public int y;
 
-    public ChessPawn(int pawn,int color,int x,int y){
+    public ChessPiece(int pawn, int color, int x, int y){
         this.x = x;
         this.y = y;
         if (pawn==2 && color==0){
@@ -65,4 +64,5 @@ public class ChessPawn {
             return null;
         }
     }
+    abstract public boolean isValidMove(int startX, int startY, int x, int y, ChessPiece[][] board);
 }
