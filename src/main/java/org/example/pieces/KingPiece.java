@@ -9,22 +9,16 @@ public class KingPiece extends ChessPiece {
 
     @Override
     public boolean isValidMove(int startX, int startY, int x, int y, ChessPiece[][] board) {
-        if (startX == x && startY == y) {
-            return false;
-        }
-
         if (x < 0 || x >= 8 || y < 0 || y >= 8) {
             return false;
         }
 
-        if (startX + 1 == x || startY + 1 == y && board[x][y] == null) {
+        int direction = board[startY][startX].color==1 ? -1 : 1;
+
+        if((startY + direction == y || startY - direction == y) || (startX + 1 == x || startX - 1 == x) && board[y][x] != null && board[y][x].color!=board[startY][startX].color){
+            this.kill(board,x,y);
             return true;
         }
-
-        if (Math.abs(startX - x) == 1 && startY + 1 == y && board[x][y] != null) {
-            return true;
-        }
-
-        return false;
+        return (startY + direction == y || startY - direction == y) || (startX + 1 == x || startX - 1 == x) && board[y][x] == null;
     }
 }
