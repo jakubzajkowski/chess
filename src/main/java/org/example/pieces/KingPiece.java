@@ -14,7 +14,9 @@ public class KingPiece extends ChessPiece {
         }
 
         int direction = board[startY][startX].color==1 ? -1 : 1;
-
+        if(board[y][x] != null && board[y][x].color==board[startY][startX].color){
+            return false;
+        }
         if((startY + direction == y || startY - direction == y) || (startX + 1 == x || startX - 1 == x) && board[y][x] != null && board[y][x].color!=board[startY][startX].color){
             this.kill(board,x,y);
             return true;
