@@ -16,6 +16,7 @@ public class ChessBoard extends JPanel {
     private ChessPiece selectedChessPawn;
     private int selectedChessPawnX;
     private int selectedChessPawnY;
+    private boolean move=true;
 
     public ChessBoard() {
         this.setPreferredSize(new Dimension(BOARD_SIZE * SQUARE_SIZE, BOARD_SIZE * SQUARE_SIZE));
@@ -125,14 +126,26 @@ public class ChessBoard extends JPanel {
 
         if (!isSelectedPawn){
             if (squares[row][col]!=null) {
-                if ((row + col) % 2 == 0) g.setColor(Color.getHSBColor(0.25F, 1.0F, 0.55F));
-                else g.setColor(Color.getHSBColor(0.25F, 0.10F, 0.85F));
-                g.fillRect((col * 100), (row * 100), SQUARE_SIZE, SQUARE_SIZE);
-                g.drawImage(squares[row][col].image, (col * 100) + hoverPadding, (row * 100) + hoverPadding, SQUARE_SIZE - 2 * hoverPadding, SQUARE_SIZE - 2 * hoverPadding, null);
-                isSelectedPawn = true;
-                selectedChessPawn = squares[row][col];
-                selectedChessPawnX = col;
-                selectedChessPawnY = row;
+                if (move && squares[row][col].color==1){
+                    if ((row + col) % 2 == 0) g.setColor(Color.getHSBColor(0.25F, 1.0F, 0.55F));
+                    else g.setColor(Color.getHSBColor(0.25F, 0.10F, 0.85F));
+                    g.fillRect((col * 100), (row * 100), SQUARE_SIZE, SQUARE_SIZE);
+                    g.drawImage(squares[row][col].image, (col * 100) + hoverPadding, (row * 100) + hoverPadding, SQUARE_SIZE - 2 * hoverPadding, SQUARE_SIZE - 2 * hoverPadding, null);
+                    isSelectedPawn = true;
+                    selectedChessPawn = squares[row][col];
+                    selectedChessPawnX = col;
+                    selectedChessPawnY = row;
+                }
+                if (!move && squares[row][col].color==0){
+                    if ((row + col) % 2 == 0) g.setColor(Color.getHSBColor(0.25F, 1.0F, 0.55F));
+                    else g.setColor(Color.getHSBColor(0.25F, 0.10F, 0.85F));
+                    g.fillRect((col * 100), (row * 100), SQUARE_SIZE, SQUARE_SIZE);
+                    g.drawImage(squares[row][col].image, (col * 100) + hoverPadding, (row * 100) + hoverPadding, SQUARE_SIZE - 2 * hoverPadding, SQUARE_SIZE - 2 * hoverPadding, null);
+                    isSelectedPawn = true;
+                    selectedChessPawn = squares[row][col];
+                    selectedChessPawnX = col;
+                    selectedChessPawnY = row;
+                }
             }
         }
         else {
@@ -148,12 +161,11 @@ public class ChessBoard extends JPanel {
                 squares[selectedChessPawnY][selectedChessPawnX]=null;
                 selectedChessPawn.x = col;
                 selectedChessPawn.y = row;
-
+                this.move=!this.move;
                 if ((selectedChessPawnY + selectedChessPawnX) % 2 == 0) g.setColor(Color.getHSBColor(0.25F, 1.0F, 0.55F));
                 else g.setColor(Color.getHSBColor(0.25F, 0.10F, 0.85F));
                 g.fillRect((selectedChessPawnX * 100), (selectedChessPawnY * 100), SQUARE_SIZE, SQUARE_SIZE);
             }
-
             selectedChessPawn = null;
             isSelectedPawn = false;
         }
