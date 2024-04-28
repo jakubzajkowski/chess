@@ -48,10 +48,7 @@ public class QueenPiece extends ChessPiece {
             int deltaY = Integer.compare(y, startY);
 
             for (int i = startX + deltaX, j = startY + deltaY; i != x && j != y; i += deltaX, j += deltaY) {
-                System.out.println(i);
-                System.out.println(j);
                 if (board[j][i] != null) {
-                    System.out.println("skos");
                     return false;
                 }
             }
