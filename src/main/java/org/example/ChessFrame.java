@@ -18,7 +18,7 @@ public class ChessFrame extends JFrame {
         this.setIconImage(image);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        this.setResizable(false);
+        this.setResizable(true);
         this.setVisible(true);
     }
 
