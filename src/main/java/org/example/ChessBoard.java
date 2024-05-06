@@ -7,8 +7,10 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class ChessBoard extends JPanel {
+    private final Color squareColorDark=Color.getHSBColor(0.6F, 1.0F, 0.55F);
+    private final Color squareColorLight=Color.getHSBColor(0.6F, 0.10F, 0.85F);
     private final int BOARD_SIZE = 8;
-    private final int SQUARE_SIZE = 100;
+    private final int SQUARE_SIZE = 70;
     private final ChessPiece[][] squares = new ChessPiece[BOARD_SIZE][BOARD_SIZE];;
     private int mouseX = -1;
     private int mouseY = -1;
@@ -114,8 +116,8 @@ public class ChessBoard extends JPanel {
                 int y = row * SQUARE_SIZE;
 
 
-                if ((row + col) % 2 == 0) g.setColor(Color.getHSBColor(0.25F, 1.0F, 0.55F));
-                else g.setColor(Color.getHSBColor(0.25F, 0.10F, 0.85F));
+                if ((row + col) % 2 == 0) g.setColor(squareColorDark);
+                else g.setColor(squareColorLight);
 
                 g.fillRect(x, y, SQUARE_SIZE, SQUARE_SIZE);
                 g.fillRect(x, y, SQUARE_SIZE, SQUARE_SIZE);
@@ -133,10 +135,9 @@ public class ChessBoard extends JPanel {
     public void movePawn(Graphics g, int mouseY, int mouseX, ChessPiece[][] squares, int SQUARE_SIZE){
         int hoverPadding = (int) (0.05 * SQUARE_SIZE);
         int pawnPadding = (int) (0.1 * SQUARE_SIZE);
-
-        int row = (int) Math.floor((double) mouseY /100);
-        int col = (int) Math.floor((double) mouseX /100);
-
+        int row = (int) Math.floor((double) mouseY /SQUARE_SIZE);
+        int col = (int) Math.floor((double) mouseX /SQUARE_SIZE);
+        System.out.println(row);
 
         if (!isSelectedPawn){
             selectPawn(g,squares,row,col,SQUARE_SIZE,hoverPadding);
@@ -148,10 +149,10 @@ public class ChessBoard extends JPanel {
     private void selectPawn(Graphics g, ChessPiece[][] squares, int row, int col, int SQUARE_SIZE,int hoverPadding) {
         if (squares[row][col]!=null) {
             if (move && squares[row][col].color == 1 || !move && squares[row][col].color == 0){
-                if ((row + col) % 2 == 0) g.setColor(Color.getHSBColor(0.25F, 1.0F, 0.55F));
-                else g.setColor(Color.getHSBColor(0.25F, 0.10F, 0.85F));
-                g.fillRect((col * 100), (row * 100), SQUARE_SIZE, SQUARE_SIZE);
-                g.drawImage(squares[row][col].image, (col * 100) + hoverPadding, (row * 100) + hoverPadding, SQUARE_SIZE - 2 * hoverPadding, SQUARE_SIZE - 2 * hoverPadding, null);
+                if ((row + col) % 2 == 0) g.setColor(squareColorDark);
+                else g.setColor(squareColorLight);
+                g.fillRect((col * SQUARE_SIZE), (row * SQUARE_SIZE), SQUARE_SIZE, SQUARE_SIZE);
+                g.drawImage(squares[row][col].image, (col * SQUARE_SIZE) + hoverPadding, (row * SQUARE_SIZE) + hoverPadding, SQUARE_SIZE - 2 * hoverPadding, SQUARE_SIZE - 2 * hoverPadding, null);
                 isSelectedPawn = true;
                 selectedChessPawn = squares[row][col];
                 selectedChessPawnX = col;
@@ -160,22 +161,22 @@ public class ChessBoard extends JPanel {
         }
     }
     private void moveSelectedPawn(Graphics g, ChessPiece[][] squares, int row, int col, int SQUARE_SIZE,int pawnPadding) {
-        if ((row + col) % 2 == 0) g.setColor(Color.getHSBColor(0.25F, 1.0F, 0.55F));
-        else g.setColor(Color.getHSBColor(0.25F, 0.10F, 0.85F));
+        if ((row + col) % 2 == 0) g.setColor(squareColorDark);
+        else g.setColor(squareColorLight);
 
 
         if (selectedChessPawn.isValidMove(selectedChessPawnX,selectedChessPawnY,col,row,squares)){
-            g.fillRect((col * 100), (row * 100), SQUARE_SIZE, SQUARE_SIZE);
-            g.drawImage(selectedChessPawn.image, (col * 100) + pawnPadding, (row * 100) + pawnPadding, SQUARE_SIZE - 2 * pawnPadding, SQUARE_SIZE - 2 * pawnPadding, null);
+            g.fillRect((col * SQUARE_SIZE), (row * SQUARE_SIZE), SQUARE_SIZE, SQUARE_SIZE);
+            g.drawImage(selectedChessPawn.image, (col * SQUARE_SIZE) + pawnPadding, (row * SQUARE_SIZE) + pawnPadding, SQUARE_SIZE - 2 * pawnPadding, SQUARE_SIZE - 2 * pawnPadding, null);
 
             squares[row][col]= selectedChessPawn;
             squares[selectedChessPawnY][selectedChessPawnX]=null;
             selectedChessPawn.x = col;
             selectedChessPawn.y = row;
             this.move=!this.move;
-            if ((selectedChessPawnY + selectedChessPawnX) % 2 == 0) g.setColor(Color.getHSBColor(0.25F, 1.0F, 0.55F));
-            else g.setColor(Color.getHSBColor(0.25F, 0.10F, 0.85F));
-            g.fillRect((selectedChessPawnX * 100), (selectedChessPawnY * 100), SQUARE_SIZE, SQUARE_SIZE);
+            if ((selectedChessPawnY + selectedChessPawnX) % 2 == 0) g.setColor(squareColorDark);
+            else g.setColor(squareColorLight);
+            g.fillRect((selectedChessPawnX * SQUARE_SIZE), (selectedChessPawnY * SQUARE_SIZE), SQUARE_SIZE, SQUARE_SIZE);
         }
         selectedChessPawn = null;
         isSelectedPawn = false;
