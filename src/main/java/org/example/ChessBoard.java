@@ -19,6 +19,7 @@ public class ChessBoard extends JPanel {
     private int selectedChessPawnX;
     private int selectedChessPawnY;
     private boolean move=true;
+    private boolean checkmate=false;
 
     public ChessBoard() {
         this.setPreferredSize(new Dimension(BOARD_SIZE * SQUARE_SIZE, BOARD_SIZE * SQUARE_SIZE));
@@ -164,19 +165,20 @@ public class ChessBoard extends JPanel {
         if ((row + col) % 2 == 0) g.setColor(squareColorDark);
         else g.setColor(squareColorLight);
 
-
         if (selectedChessPawn.isValidMove(selectedChessPawnX,selectedChessPawnY,col,row,squares)){
-            g.fillRect((col * SQUARE_SIZE), (row * SQUARE_SIZE), SQUARE_SIZE, SQUARE_SIZE);
-            g.drawImage(selectedChessPawn.image, (col * SQUARE_SIZE) + pawnPadding, (row * SQUARE_SIZE) + pawnPadding, SQUARE_SIZE - 2 * pawnPadding, SQUARE_SIZE - 2 * pawnPadding, null);
-
-            squares[row][col]= selectedChessPawn;
-            squares[selectedChessPawnY][selectedChessPawnX]=null;
-            selectedChessPawn.x = col;
-            selectedChessPawn.y = row;
-            this.move=!this.move;
-            if ((selectedChessPawnY + selectedChessPawnX) % 2 == 0) g.setColor(squareColorDark);
-            else g.setColor(squareColorLight);
-            g.fillRect((selectedChessPawnX * SQUARE_SIZE), (selectedChessPawnY * SQUARE_SIZE), SQUARE_SIZE, SQUARE_SIZE);
+            if (!(squares[row][col] instanceof KingPiece)){
+                g.fillRect((col * SQUARE_SIZE), (row * SQUARE_SIZE), SQUARE_SIZE, SQUARE_SIZE);
+                g.drawImage(selectedChessPawn.image, (col * SQUARE_SIZE) + pawnPadding, (row * SQUARE_SIZE) + pawnPadding, SQUARE_SIZE - 2 * pawnPadding, SQUARE_SIZE - 2 * pawnPadding, null);
+                squares[row][col]= selectedChessPawn;
+                squares[selectedChessPawnY][selectedChessPawnX]=null;
+                selectedChessPawn.x = col;
+                selectedChessPawn.y = row;
+                this.move=!this.move;
+                if ((selectedChessPawnY + selectedChessPawnX) % 2 == 0) g.setColor(squareColorDark);
+                else g.setColor(squareColorLight);
+                g.fillRect((selectedChessPawnX * SQUARE_SIZE), (selectedChessPawnY * SQUARE_SIZE), SQUARE_SIZE, SQUARE_SIZE);
+                selectedChessPawn.isInCheck(col,row,this.checkmate,squares);
+            }
         }
         selectedChessPawn = null;
         isSelectedPawn = false;
