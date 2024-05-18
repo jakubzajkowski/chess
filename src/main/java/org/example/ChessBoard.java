@@ -19,7 +19,7 @@ public class ChessBoard extends JPanel {
     private int selectedChessPawnX;
     private int selectedChessPawnY;
     private boolean move = true;
-    private boolean checkmate= false;
+    private boolean checkmate = false;
 
     public ChessBoard() {
         this.setPreferredSize(new Dimension(BOARD_SIZE * SQUARE_SIZE, BOARD_SIZE * SQUARE_SIZE));
@@ -103,7 +103,7 @@ public class ChessBoard extends JPanel {
                 if ((selectedChessPawnY + selectedChessPawnX) % 2 == 0) g.setColor(squareColorDark);
                 else g.setColor(squareColorLight);
                 g.fillRect((selectedChessPawnX * SQUARE_SIZE), (selectedChessPawnY * SQUARE_SIZE), SQUARE_SIZE, SQUARE_SIZE);
-                selectedChessPawn.isInCheck(col, row, this.checkmate, squares);
+                game.isCheck(col, row, this.checkmate);
             }
         }
         selectedChessPawn = null;

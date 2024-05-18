@@ -2,8 +2,6 @@ package org.example;
 
 import org.example.pieces.*;
 
-import java.awt.*;
-
 public class ChessGame {
     private final int BOARD_SIZE = 8;
     private final ChessPiece[][] squares = new ChessPiece[BOARD_SIZE][BOARD_SIZE];
@@ -114,8 +112,10 @@ public class ChessGame {
         }
     }
 
-    public boolean isCheckmate(Color color) {
-        // Implement checkmate logic here
-        return false;
+    public void isCheck(int startX, int startY, boolean check) {
+        ChessPiece piece = squares[startY][startX];
+        if (piece != null) {
+            piece.isInCheck(startX, startY, check,squares);
+        }
     }
 }

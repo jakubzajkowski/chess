@@ -78,7 +78,7 @@ public abstract class ChessPiece {
         for (int i=0;i<8;i++){
             for (int j=0;j<8;j++){
                 if ((board[i][j] instanceof KingPiece) && board[i][j].color!=this.color){
-                    if (this.isValidMove(startX,startY,i,j, board)) checkmate=true;
+                    if (this.isValidMove(startX,startY,i,j, board)) System.out.println("check");;
                 }
             }
         }
