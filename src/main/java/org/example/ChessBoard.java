@@ -19,7 +19,8 @@ public class ChessBoard extends JPanel {
     private int selectedChessPawnX;
     private int selectedChessPawnY;
     private boolean move = true;
-    private boolean checkmate = false;
+    private boolean check = false;
+    private ChessPiece checkChessPawn;
 
     public ChessBoard() {
         this.setPreferredSize(new Dimension(BOARD_SIZE * SQUARE_SIZE, BOARD_SIZE * SQUARE_SIZE));
@@ -96,14 +97,14 @@ public class ChessBoard extends JPanel {
 
         if (game.isValidMove(selectedChessPawnX, selectedChessPawnY, col, row)) {
             if (!(squares[row][col] instanceof KingPiece)) {
+                game.movePiece(selectedChessPawnX, selectedChessPawnY, col, row);
                 g.fillRect((col * SQUARE_SIZE), (row * SQUARE_SIZE), SQUARE_SIZE, SQUARE_SIZE);
                 g.drawImage(selectedChessPawn.image, (col * SQUARE_SIZE) + pawnPadding, (row * SQUARE_SIZE) + pawnPadding, SQUARE_SIZE - 2 * pawnPadding, SQUARE_SIZE - 2 * pawnPadding, null);
-                game.movePiece(selectedChessPawnX, selectedChessPawnY, col, row);
                 this.move = !this.move;
                 if ((selectedChessPawnY + selectedChessPawnX) % 2 == 0) g.setColor(squareColorDark);
                 else g.setColor(squareColorLight);
                 g.fillRect((selectedChessPawnX * SQUARE_SIZE), (selectedChessPawnY * SQUARE_SIZE), SQUARE_SIZE, SQUARE_SIZE);
-                game.isCheck(col, row, this.checkmate);
+                game.isCheck(selectedChessPawn);
             }
         }
         selectedChessPawn = null;

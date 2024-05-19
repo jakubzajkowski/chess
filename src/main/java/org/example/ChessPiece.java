@@ -73,14 +73,4 @@ public abstract class ChessPiece {
     public void kill(ChessPiece[][] board,int x,int y){
         board[y][x] = null;
     }
-
-    public void isInCheck(int startX, int startY, boolean checkmate, ChessPiece[][] board){
-        for (int i=0;i<8;i++){
-            for (int j=0;j<8;j++){
-                if ((board[i][j] instanceof KingPiece) && board[i][j].color!=this.color){
-                    if (this.isValidMove(startX,startY,i,j, board)) System.out.println("check");;
-                }
-            }
-        }
-    }
 }
