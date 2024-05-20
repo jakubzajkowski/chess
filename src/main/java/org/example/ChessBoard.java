@@ -98,13 +98,16 @@ public class ChessBoard extends JPanel {
         if (game.isValidMove(selectedChessPawnX, selectedChessPawnY, col, row)) {
             if (!(squares[row][col] instanceof KingPiece)) {
                 game.movePiece(selectedChessPawnX, selectedChessPawnY, col, row);
-                g.fillRect((col * SQUARE_SIZE), (row * SQUARE_SIZE), SQUARE_SIZE, SQUARE_SIZE);
-                g.drawImage(selectedChessPawn.image, (col * SQUARE_SIZE) + pawnPadding, (row * SQUARE_SIZE) + pawnPadding, SQUARE_SIZE - 2 * pawnPadding, SQUARE_SIZE - 2 * pawnPadding, null);
-                this.move = !this.move;
-                if ((selectedChessPawnY + selectedChessPawnX) % 2 == 0) g.setColor(squareColorDark);
-                else g.setColor(squareColorLight);
-                g.fillRect((selectedChessPawnX * SQUARE_SIZE), (selectedChessPawnY * SQUARE_SIZE), SQUARE_SIZE, SQUARE_SIZE);
-                game.isCheck(selectedChessPawn);
+                if (game.isCheck(selectedChessPawn)){
+                    game.movePiece(col, row, selectedChessPawnX, selectedChessPawnY);
+                }else {
+                    g.fillRect((col * SQUARE_SIZE), (row * SQUARE_SIZE), SQUARE_SIZE, SQUARE_SIZE);
+                    g.drawImage(selectedChessPawn.image, (col * SQUARE_SIZE) + pawnPadding, (row * SQUARE_SIZE) + pawnPadding, SQUARE_SIZE - 2 * pawnPadding, SQUARE_SIZE - 2 * pawnPadding, null);
+                    this.move = !this.move;
+                    if ((selectedChessPawnY + selectedChessPawnX) % 2 == 0) g.setColor(squareColorDark);
+                    else g.setColor(squareColorLight);
+                    g.fillRect((selectedChessPawnX * SQUARE_SIZE), (selectedChessPawnY * SQUARE_SIZE), SQUARE_SIZE, SQUARE_SIZE);
+                }
             }
         }
         selectedChessPawn = null;

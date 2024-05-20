@@ -112,31 +112,34 @@ public class ChessGame {
         }
     }
 
-    public void isCheck(ChessPiece chessPiece) {
+    public boolean isCheck(ChessPiece chessPiece) {
         ChessPiece king = null;
-        for (int i=0;i<8;i++){
-            for (int j=0;j<8;j++){
-                if ((squares[i][j] instanceof KingPiece) && squares[i][j].color==chessPiece.color){
-                    king=squares[i][j];
+        for (int row=0;row<8;row++){
+            for (int col=0;col<8;col++){
+                if ((squares[row][col] instanceof KingPiece) && squares[row][col].color==chessPiece.color){
+                    king=squares[row][col];
                 }
             }
         }
-        for (int i=0;i<8;i++){
-            for (int j=0;j<8;j++){
-                if(squares[i][j]!=null){
-                    if (squares[i][j].color!=chessPiece.color){
+        System.out.println(king);
+        for (int row=0;row<8;row++){
+            for (int col=0;col<8;col++){
+                if(squares[row][col]!=null){
+                    if (squares[row][col].color!=chessPiece.color){
                         assert king != null;
-                        if (squares[i][j].isValidMove(j, i, king.y,king.x,squares)){
+                        if (this.isValidMove(col, row, king.y, king.x)){
                             System.out.println(king.x);
                             System.out.println(king.y);
                             System.out.println("check");
-                            System.out.println(j);
-                            System.out.println(i);
-                            System.out.println(squares[i][j]);
+                            System.out.println(col);
+                            System.out.println(row);
+                            System.out.println(squares[row][col]);
+                            return true;
                         }
                     }
                 }
             }
         }
+        return false;
     }
 }
